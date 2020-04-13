@@ -1,3 +1,3 @@
-# Guessing_Game   
-## Jitta Koopratoomsiri   
-## 6110545449   
+## Guessing_Game   
+Jitta Koopratoomsiri   
+6110545449   
