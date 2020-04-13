@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<center>
+<head>
+  <title>Guessing Game</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css" />
+  <h1>MongoDB Exercises - Array</h1>
+  <h2>Alphabet Guessing Game v1.0</h2>
+  <script>
+
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+    window.onload = function () {
+      var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+        'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
+        't', 'u', 'v', 'w', 'x', 'y', 'z'
+      ];
+      var word; // Selected word
+      var guess; // Guess
+      var guesses = []; // Stored guesses
+      var remainingGuess // Lives
+      var counter; // Count correct guesses
+      var space; // Number of spaces in word '-'
+      // Get elements
+      var showRemaining = document.getElementById("remainingGuess");
+      // create alphabet ul
+      var buttons = function () {
+        myButtons = document.getElementById('buttons');
+        letters = document.createElement('ul');
+        for (var i = 0; i < alphabet.length; i++) {
+          letters.id = 'alphabet';
+          list = document.createElement('li');
+          list.id = 'letter';
+          list.innerHTML = alphabet[i];
+          check();
+          myButtons.appendChild(letters);
+          letters.appendChild(list);
+        }
+      }
+      // Create guesses ul
+      result = function () {
+        wordHolder = document.getElementById('hold');
+        correct = document.createElement('ul');
+        for (var i = 0; i < word.length; i++) {
+          correct.setAttribute('id', 'my-word');
+          guess = document.createElement('li');
+          guess.setAttribute('class', 'guess');
+          if (word[i] === "-") {
+            guess.innerHTML = "-";
+            space = 1;
+          } else {
+            guess.innerHTML = "_";
+          }
+          guesses.push(guess);
+          wordHolder.appendChild(correct);
+          correct.appendChild(guess);
+        }
+      }
+      // Show remainingGuess
+      comments = function () {
+        if (remainingGuess > 1) {
+          showRemaining.innerHTML = "You have " + remainingGuess + " guesses";
+        }
+        if (remainingGuess == 1) {
+          showRemaining.innerHTML = "You have " + remainingGuess + " guess";
+        }
+        if (remainingGuess < 1) {
+          showRemaining.innerHTML = "Game over, please refresh to begin again.";
+        }
+        for (var i = 0; i < guesses.length; i++) {
+          if (counter + space === guesses.length) {
+            showRemaining.innerHTML = "You Win!";
+          }
+        }
+      }
+      // OnClick Function
+      check = function () {
+        list.onclick = function () {
+          var guess = (this.innerHTML);
+          this.setAttribute("class", "active");
+          this.onclick = null;
+          for (var i = 0; i < word.length; i++) {
+            if (word[i] === guess) {
+              guesses[i].innerHTML = guess;
+              counter += 1;
+            }
+          }
+          var j = (word.indexOf(guess));
+          if (j === -1) {
+            remainingGuess -= 1;
+            comments();
+            animate();
+          } else {
+            comments();
+          }
+        }
+      }
+      // Play
+      play = function () {
+        word = [
+        ['Outreach',
+        'Sample',
+        'Fuzz',
+        'Bank',
+        'Apache',
+        'Provost',
+        'Grocer',
+        'Frenchman',
+        'Battle',
+        'Mass',
+        'Piece',
+        'Minority',
+        'Sauce',
+        'Linebacker',
+        'Sheath',
+        'Equator',
+        'Meditation',
+        'Stethoscope']
+        ];
+        
+        chosenNoun = noun[Math.floor(Math.random() * noun.length)];
+        word = chosenNoun[Math.floor(Math.random() * chosenNoun.length)];
+        word = word.replace(/\s/g, "-");
+        console.log(word);
+        buttons();
+        guesses = [];
+        remainingGuess = 10;
+        counter = 0;
+        space = 0;
+        result();
+        comments();
+      }
+      play();
+    }
+  </script>
+  <link rel="stylesheet" href="./style.css"> </head>
+
+<body>
+  <div class="container">
+    <h3>Pick the alphabet that forms the word</h3>
+  </div>
+  <div class="container">
+    <div id="hold">
+    </div>
+    <div id="buttons">
+    </div>
+    <p id="remainingGuess"></p>
+  </div>
+</body>
+</center>
+</html>
